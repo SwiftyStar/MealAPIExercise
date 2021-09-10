@@ -5,10 +5,24 @@ import Foundation
 
 final class CategoriesViewModel {
     private let networkManager: NetworkManager
-    private var categories: [Category] = []
+    private var sortedCategories: [Category] = []
+    
+    private var categories: [Category] {
+        didSet {
+            let sortedCategories = self.categories.sorted { first, second in
+                guard let firstName = first.name else { return true }
+                guard let secondName = second.name else { return false }
+                
+                return firstName < secondName
+            }
+            
+            self.sortedCategories = sortedCategories
+        }
+    }
     
     init(networkManager: NetworkManager = DefaultNetworkManager()) {
         self.networkManager = networkManager
+        self.categories = []
     }
     
     /// Retrieves the categories content from the API
@@ -47,14 +61,14 @@ final class CategoriesViewModel {
     /// - Returns: Category?
     func getCategory(for index: IndexPath) -> Category? {
         let row = index.row
-        guard row < self.categories.count else { return nil }
+        guard row < self.sortedCategories.count else { return nil }
         
-        return self.categories[row]
+        return self.sortedCategories[row]
     }
     
     /// Gets the number of rows the table view should display
     /// - Returns: Int
     func getNumberOfRows() -> Int {
-        return self.categories.count
+        return self.sortedCategories.count
     }
 }

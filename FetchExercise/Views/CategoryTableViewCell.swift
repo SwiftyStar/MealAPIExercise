@@ -27,7 +27,7 @@ final class CategoryTableViewCell: UITableViewCell {
     
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.font = .preferredFont(forTextStyle: .title1)
+        label.font = .preferredFont(forTextStyle: .largeTitle)
         label.numberOfLines = 0
         return label
     }()
@@ -114,7 +114,7 @@ final class CategoryTableViewCell: UITableViewCell {
             .isActive = true
         self.descriptionLabel
             .topAnchor
-            .constraint(equalTo: self.nameLabel.bottomAnchor, constant: 4)
+            .constraint(equalTo: self.nameLabel.bottomAnchor, constant: 6)
             .isActive = true
         self.descriptionLabel
             .bottomAnchor
