@@ -3,7 +3,7 @@
 
 import UIKit
 
-final class CategoryCellViewModel {
+final class MealCollectionViewCellViewModel {
     private let networkManager: NetworkManager
     private let imageCache: ImageCache
     private var currentURLTask: URLSessionDataTask?
@@ -12,26 +12,20 @@ final class CategoryCellViewModel {
         self.networkManager = networkManager
         self.imageCache = imageCache
     }
-    /// Gets the name of the category if present. Otherwise returns a default value
-    /// - Parameter category: Category?
+    
+    /// Gets the name of the meal if present. Otherwise returns a default value
+    /// - Parameter meal: Meal?
     /// - Returns: String
-    func getName(for category: Category?) -> String {
-        category?.name ?? kCategory
+    func getName(for meal: Meal?) -> String {
+        meal?.name ?? kMeal
     }
     
-    /// Gets the description of the category if present. Otherwise returns a default value
-    /// - Parameter category: Category?
-    /// - Returns: String
-    func getDescription(for category: Category?) -> String {
-        category?.description ?? kDescription
-    }
-    
-    /// Downloads the image for the given category
+    /// Downloads the image for the given meal
     /// - Parameters:
-    ///   - category: Category?
+    ///   - category: Meal?
     ///   - completion: (UIImage?) -> Void
-    func downloadImage(for category: Category?, completion: @escaping (UIImage?) -> Void) {
-        guard let imageURLString = category?.imageURLString,
+    func downloadImage(for meal: Meal?, completion: @escaping (UIImage?) -> Void) {
+        guard let imageURLString = meal?.imageURLString,
               let imageURL = URL(string: imageURLString)
         else {
             self.handleImageFailure(completion: completion)
@@ -42,7 +36,7 @@ final class CategoryCellViewModel {
             completion(cachedImage)
             return
         }
-        
+                
         let task = self.networkManager.getData(from: imageURL) { [weak self] result in
             switch result {
             case .success(let data):

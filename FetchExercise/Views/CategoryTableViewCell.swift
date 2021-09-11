@@ -19,11 +19,7 @@ final class CategoryTableViewCell: UITableViewCell {
         return imageView
     }()
     
-    private let loadingView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .gray
-        return view
-    }()
+    private let loadingView: UIActivityIndicatorView = UIActivityIndicatorView(style: .medium)
     
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -46,6 +42,14 @@ final class CategoryTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        self.viewModel.cancelDownload()
+        self.loadingView.startAnimating()
+        self.loadingView.isHidden = false
+        self.categoryImage.image = nil
+        super.prepareForReuse()
     }
     
     private func setupViews() {
@@ -127,8 +131,9 @@ final class CategoryTableViewCell: UITableViewCell {
         self.descriptionLabel.text = self.viewModel.getDescription(for: category)
         
         self.viewModel.downloadImage(for: category) { [weak self] image in
+            self?.loadingView.stopAnimating()
+            self?.loadingView.isHidden = true
             self?.categoryImage.image = image
-            self?.loadingView.removeFromSuperview()
         }
     }
 }

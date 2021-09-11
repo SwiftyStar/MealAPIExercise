@@ -19,17 +19,4 @@ struct Category: Decodable {
         case imageURLString = "strCategoryThumb"
         case description = "strCategoryDescription"
     }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        let id = try container.decode(String.self, forKey: .id)
-        let name = try container.decodeIfPresent(String.self, forKey: .name)
-        let imageURLString = try container.decodeIfPresent(String.self, forKey: .imageURLString)
-        let description = try container.decodeIfPresent(String.self, forKey: .description)
-
-        self.id = id
-        self.name = name
-        self.imageURLString = imageURLString
-        self.description = description
-    }
 }

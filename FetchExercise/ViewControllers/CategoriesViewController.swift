@@ -51,8 +51,8 @@ final class CategoriesViewController: BaseViewController {
         self.showActivityIndicator()
         self.viewModel.getContent { [weak self] error in
             self?.hideActivityIndicator()
+            
             if let error = error {
-                // For debugging. In production, likely log properly and show the user some content
                 print(error.localizedDescription)
             } else {
                 self?.tableView.reloadData()
@@ -73,5 +73,12 @@ extension CategoriesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: category)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.tableView.deselectRow(at: indexPath, animated: true)
+        guard let category = self.viewModel.getCategory(for: indexPath) else { return }
+        
+        let mealCollectionController = MealCollectionViewController(category: category)
+        self.navigationController?.pushViewController(mealCollectionController, animated: true)
+    }
 }
-
