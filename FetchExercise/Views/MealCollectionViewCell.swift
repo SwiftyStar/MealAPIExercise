@@ -38,14 +38,6 @@ final class MealCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        self.viewModel.cancelDownload()
-        self.loadingView.startAnimating()
-        self.loadingView.isHidden = false
-        self.mealImage.image = nil
-        super.prepareForReuse()
-    }
-    
     private func setupViews() {
         self.contentView.addSubview(self.mealImage)
         self.mealImage.translatesAutoresizingMaskIntoConstraints = false
@@ -108,6 +100,10 @@ final class MealCollectionViewCell: UICollectionViewCell {
     func configure(with meal: Meal?) {
         self.nameLabel.text = self.viewModel.getName(for: meal)
         
+        self.viewModel.cancelDownload()
+        self.mealImage.image = nil
+        self.loadingView.startAnimating()
+        self.loadingView.isHidden = false
         self.viewModel.downloadImage(for: meal) { [weak self] image in
             self?.loadingView.stopAnimating()
             self?.loadingView.isHidden = true

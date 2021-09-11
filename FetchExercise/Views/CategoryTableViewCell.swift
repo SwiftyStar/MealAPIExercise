@@ -44,14 +44,6 @@ final class CategoryTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        self.viewModel.cancelDownload()
-        self.loadingView.startAnimating()
-        self.loadingView.isHidden = false
-        self.categoryImage.image = nil
-        super.prepareForReuse()
-    }
-    
     private func setupViews() {
         self.contentView.addSubview(self.categoryImage)
         self.categoryImage.translatesAutoresizingMaskIntoConstraints = false
@@ -130,6 +122,10 @@ final class CategoryTableViewCell: UITableViewCell {
         self.nameLabel.text = self.viewModel.getName(for: category)
         self.descriptionLabel.text = self.viewModel.getDescription(for: category)
         
+        self.viewModel.cancelDownload()
+        self.categoryImage.image = nil
+        self.loadingView.startAnimating()
+        self.loadingView.isHidden = false
         self.viewModel.downloadImage(for: category) { [weak self] image in
             self?.loadingView.stopAnimating()
             self?.loadingView.isHidden = true
