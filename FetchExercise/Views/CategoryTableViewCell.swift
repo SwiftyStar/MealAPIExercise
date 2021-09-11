@@ -13,7 +13,7 @@ final class CategoryTableViewCell: UITableViewCell {
         UIScreen.main.bounds.width - 2 * self.horizontalPadding
     }
     
-    private let categoryImage: UIImageView = {
+    private let categoryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -45,21 +45,21 @@ final class CategoryTableViewCell: UITableViewCell {
     }
     
     private func setupViews() {
-        self.contentView.addSubview(self.categoryImage)
-        self.categoryImage.translatesAutoresizingMaskIntoConstraints = false
-        self.categoryImage
+        self.contentView.addSubview(self.categoryImageView)
+        self.categoryImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.categoryImageView
             .topAnchor
             .constraint(equalTo: self.contentView.topAnchor, constant: 8)
             .isActive = true
-        self.categoryImage
+        self.categoryImageView
             .leadingAnchor
             .constraint(equalTo: self.contentView.leadingAnchor, constant: self.horizontalPadding)
             .isActive = true
-        self.categoryImage
+        self.categoryImageView
             .trailingAnchor
             .constraint(equalTo: self.contentView.trailingAnchor, constant: -self.horizontalPadding)
             .isActive = true
-        self.categoryImage
+        self.categoryImageView
             .heightAnchor
             .constraint(equalToConstant: self.imageHeight)
             .isActive = true
@@ -68,26 +68,26 @@ final class CategoryTableViewCell: UITableViewCell {
         self.loadingView.translatesAutoresizingMaskIntoConstraints = false
         self.loadingView
             .leadingAnchor
-            .constraint(equalTo: self.categoryImage.leadingAnchor)
+            .constraint(equalTo: self.categoryImageView.leadingAnchor)
             .isActive = true
         self.loadingView
             .topAnchor
-            .constraint(equalTo: self.categoryImage.topAnchor)
+            .constraint(equalTo: self.categoryImageView.topAnchor)
             .isActive = true
         self.loadingView
             .trailingAnchor
-            .constraint(equalTo: self.categoryImage.trailingAnchor)
+            .constraint(equalTo: self.categoryImageView.trailingAnchor)
             .isActive = true
         self.loadingView
             .bottomAnchor
-            .constraint(equalTo: self.categoryImage.bottomAnchor)
+            .constraint(equalTo: self.categoryImageView.bottomAnchor)
             .isActive = true
         
         self.contentView.addSubview(self.nameLabel)
         self.nameLabel.translatesAutoresizingMaskIntoConstraints = false
         self.nameLabel
             .topAnchor
-            .constraint(equalTo: self.categoryImage.bottomAnchor, constant: 12)
+            .constraint(equalTo: self.categoryImageView.bottomAnchor, constant: 12)
             .isActive = true
         self.nameLabel
             .leadingAnchor
@@ -123,13 +123,13 @@ final class CategoryTableViewCell: UITableViewCell {
         self.descriptionLabel.text = self.viewModel.getDescription(for: category)
         
         self.viewModel.cancelDownload()
-        self.categoryImage.image = nil
+        self.categoryImageView.image = nil
         self.loadingView.startAnimating()
         self.loadingView.isHidden = false
         self.viewModel.downloadImage(for: category) { [weak self] image in
             self?.loadingView.stopAnimating()
             self?.loadingView.isHidden = true
-            self?.categoryImage.image = image
+            self?.categoryImageView.image = image
         }
     }
 }

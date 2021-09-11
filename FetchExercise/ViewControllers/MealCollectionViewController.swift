@@ -62,7 +62,7 @@ final class MealCollectionViewController: BaseViewController {
             self?.hideActivityIndicator()
             
             if let error = error {
-                print(error.localizedDescription)
+                print(error.localizedDescription) // Handle error
             } else {
                 self?.collectionView.reloadData()
             }
@@ -97,5 +97,12 @@ extension MealCollectionViewController: UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         self.spacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let meal = self.viewModel.getMeal(for: indexPath) else { return }
+        
+        let mealDetailsController = MealDetailsViewController(meal: meal)
+        self.navigationController?.pushViewController(mealDetailsController, animated: true)
     }
 }

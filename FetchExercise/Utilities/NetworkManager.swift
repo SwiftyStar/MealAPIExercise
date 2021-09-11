@@ -4,7 +4,10 @@
 import Foundation
 
 protocol NetworkManager {
+    @discardableResult
     func getData(from apiRequest: APIRequest, completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionDataTask?
+    
+    @discardableResult
     func getData(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionDataTask
 }
 
@@ -43,6 +46,7 @@ final class DefaultNetworkManager: NetworkManager {
         return dataTask
     }
     
+    @discardableResult
     func getData(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionDataTask {
         let request = URLRequest(url: url,
                                  cachePolicy: .returnCacheDataElseLoad,

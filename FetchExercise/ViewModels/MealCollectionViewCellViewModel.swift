@@ -22,7 +22,7 @@ final class MealCollectionViewCellViewModel {
     
     /// Downloads the image for the given meal
     /// - Parameters:
-    ///   - category: Meal?
+    ///   - meal: Meal?
     ///   - completion: (UIImage?) -> Void
     func downloadImage(for meal: Meal?, completion: @escaping (UIImage?) -> Void) {
         guard let imageURLString = meal?.imageURLString,

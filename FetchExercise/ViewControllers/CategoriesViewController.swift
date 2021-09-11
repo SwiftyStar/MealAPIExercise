@@ -53,7 +53,7 @@ final class CategoriesViewController: BaseViewController {
             self?.hideActivityIndicator()
             
             if let error = error {
-                print(error.localizedDescription)
+                print(error.localizedDescription) // Handle error
             } else {
                 self?.tableView.reloadData()
             }

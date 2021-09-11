@@ -53,6 +53,8 @@ final class CategoriesViewModel {
     private func handleFailure(error: Error, completion: @escaping (Error?) -> Void) {
         DispatchQueue.main.async {
             completion(error)
+            // Maybe instead of giving the error, give an enum for error state based on the error
+            // Then the view can display content appropriately
         }
     }
     

@@ -14,7 +14,7 @@ final class MealCollectionViewCell: UICollectionViewCell {
         self.contentView.frame.width
     }
     
-    private let mealImage: UIImageView = {
+    private let mealImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         return imageView
@@ -39,21 +39,21 @@ final class MealCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupViews() {
-        self.contentView.addSubview(self.mealImage)
-        self.mealImage.translatesAutoresizingMaskIntoConstraints = false
-        self.mealImage
+        self.contentView.addSubview(self.mealImageView)
+        self.mealImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.mealImageView
             .topAnchor
             .constraint(equalTo: self.contentView.topAnchor)
             .isActive = true
-        self.mealImage
+        self.mealImageView
             .leadingAnchor
             .constraint(equalTo: self.contentView.leadingAnchor)
             .isActive = true
-        self.mealImage
+        self.mealImageView
             .trailingAnchor
             .constraint(equalTo: self.contentView.trailingAnchor)
             .isActive = true
-        self.mealImage
+        self.mealImageView
             .heightAnchor
             .constraint(equalToConstant: self.imageHeight)
             .isActive = true
@@ -62,26 +62,26 @@ final class MealCollectionViewCell: UICollectionViewCell {
         self.loadingView.translatesAutoresizingMaskIntoConstraints = false
         self.loadingView
             .leadingAnchor
-            .constraint(equalTo: self.mealImage.leadingAnchor)
+            .constraint(equalTo: self.mealImageView.leadingAnchor)
             .isActive = true
         self.loadingView
             .topAnchor
-            .constraint(equalTo: self.mealImage.topAnchor)
+            .constraint(equalTo: self.mealImageView.topAnchor)
             .isActive = true
         self.loadingView
             .trailingAnchor
-            .constraint(equalTo: self.mealImage.trailingAnchor)
+            .constraint(equalTo: self.mealImageView.trailingAnchor)
             .isActive = true
         self.loadingView
             .bottomAnchor
-            .constraint(equalTo: self.mealImage.bottomAnchor)
+            .constraint(equalTo: self.mealImageView.bottomAnchor)
             .isActive = true
         
         self.contentView.addSubview(self.nameLabel)
         self.nameLabel.translatesAutoresizingMaskIntoConstraints = false
         self.nameLabel
             .topAnchor
-            .constraint(equalTo: self.mealImage.bottomAnchor, constant: Self.nameLabelTopPadding)
+            .constraint(equalTo: self.mealImageView.bottomAnchor, constant: Self.nameLabelTopPadding)
             .isActive = true
         self.nameLabel
             .leadingAnchor
@@ -101,13 +101,13 @@ final class MealCollectionViewCell: UICollectionViewCell {
         self.nameLabel.text = self.viewModel.getName(for: meal)
         
         self.viewModel.cancelDownload()
-        self.mealImage.image = nil
+        self.mealImageView.image = nil
         self.loadingView.startAnimating()
         self.loadingView.isHidden = false
         self.viewModel.downloadImage(for: meal) { [weak self] image in
             self?.loadingView.stopAnimating()
             self?.loadingView.isHidden = true
-            self?.mealImage.image = image
+            self?.mealImageView.image = image // ?? defaultImage, or display some other view when nil
         }
     }
 }
