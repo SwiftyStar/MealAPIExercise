@@ -33,7 +33,7 @@ final class MealCollectionViewCellViewModel {
         }
         
         if let cachedImage = self.imageCache.getImage(for: imageURLString) {
-            completion(cachedImage)
+            self.handleImageSuccess(image: cachedImage, completion: completion)
             return
         }
                 
@@ -41,14 +41,14 @@ final class MealCollectionViewCellViewModel {
             switch result {
             case .success(let data):
                 guard let image = UIImage(data: data) else {
-                    completion(nil)
+                    self?.handleImageFailure(completion: completion)
                     return
                 }
                 
                 self?.imageCache.cacheImage(image, for: imageURLString)
                 self?.handleImageSuccess(image: image, completion: completion)
-            case .failure:
-                self?.handleImageFailure(completion: completion)
+            case .failure(let error):
+                self?.handleImageFailure(error: error, completion: completion)
             }
         }
 
@@ -66,7 +66,12 @@ final class MealCollectionViewCellViewModel {
         }
     }
     
-    private func handleImageFailure(completion: @escaping (UIImage?) -> Void) {
+    private func handleImageFailure(error: Error? = nil, completion: @escaping (UIImage?) -> Void) {
+        if let urlError = error as? URLError,
+           urlError.code == .cancelled {
+            return
+        }
+        
         DispatchQueue.main.async {
             completion(nil)
         }
