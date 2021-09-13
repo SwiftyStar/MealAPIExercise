@@ -30,7 +30,7 @@ final class CategoryCellViewModel {
     /// - Parameters:
     ///   - category: Category?
     ///   - completion: (UIImage?) -> Void
-    func downloadImage(for category: Category?, completion: @escaping (UIImage?) -> Void) {
+    func downloadImage(for category: Category?, completion: @escaping (ImageDownloadState) -> Void) {
         guard let imageURLString = category?.imageURLString,
               let imageURL = URL(string: imageURLString)
         else {
@@ -66,20 +66,21 @@ final class CategoryCellViewModel {
         self.currentURLTask?.cancel()
     }
     
-    private func handleImageSuccess(image: UIImage, completion: @escaping (UIImage?) -> Void) {
+    private func handleImageSuccess(image: UIImage, completion: @escaping (ImageDownloadState) -> Void) {
         DispatchQueue.main.async {
-            completion(image)
+            completion(.success(image: image))
         }
     }
     
-    private func handleImageFailure(error: Error? = nil, completion: @escaping (UIImage?) -> Void) {
-        if let urlError = error as? URLError,
-           urlError.code == .cancelled {
-            return
-        }
-        
+    private func handleImageFailure(error: Error? = nil, completion: @escaping (ImageDownloadState) -> Void) {
         DispatchQueue.main.async {
-            completion(nil)
+            if let urlError = error as? URLError,
+               urlError.code == .cancelled {
+                completion(.cancelled)
+                return
+            }
+            
+            completion(.failure(error: error))
         }
     }
 }

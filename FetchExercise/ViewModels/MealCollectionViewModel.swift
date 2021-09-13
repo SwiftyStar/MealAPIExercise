@@ -80,7 +80,7 @@ final class MealCollectionViewModel {
     ///   - spacing: CGFloat
     ///   - itemsPerRow: Int
     /// - Returns: CGSize
-    func getItemSize(for spacing: CGFloat, itemsPerRow: Int) -> CGSize {
+    func getItemSize(spacing: CGFloat, itemsPerRow: Int) -> CGSize {
         let cgItemsPerRow = CGFloat(itemsPerRow)
         let interItemSpacing = spacing * (cgItemsPerRow - 1)
         let horizontalSpacing = spacing * 2

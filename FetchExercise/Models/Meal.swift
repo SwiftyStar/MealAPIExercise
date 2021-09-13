@@ -3,11 +3,11 @@
 
 import Foundation
 
-struct Meals: Decodable {
+struct Meals: Codable {
     let meals: [Meal]
 }
 
-struct Meal: Decodable {
+struct Meal: Codable {
     let id: String?
     let name: String?
     let imageURLString: String?

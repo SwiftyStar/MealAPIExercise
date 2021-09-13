@@ -3,7 +3,7 @@
 
 import Foundation
 
-protocol NetworkManager {
+public protocol NetworkManager {
     @discardableResult
     func getData(from apiRequest: APIRequest, completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionDataTask?
     
@@ -11,7 +11,7 @@ protocol NetworkManager {
     func getData(from url: URL, completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionDataTask
 }
 
-final class DefaultNetworkManager: NetworkManager {
+struct DefaultNetworkManager: NetworkManager {
     
     @discardableResult
     func getData(from apiRequest: APIRequest, completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionDataTask? {
@@ -34,7 +34,7 @@ final class DefaultNetworkManager: NetworkManager {
         
         let dataTask = URLSession(configuration: .default).dataTask(with: request) { data, _, error in
             guard let receivedData = data else {
-                let receivedError = error ?? NSError()
+                let receivedError = error ?? URLError(.badServerResponse)
                 completion(.failure(receivedError))
                 return
             }
@@ -54,7 +54,7 @@ final class DefaultNetworkManager: NetworkManager {
         
         let dataTask = URLSession(configuration: .default).dataTask(with: request) { data, _, error in
             guard let receivedData = data else {
-                let receivedError = error ?? NSError()
+                let receivedError = error ?? URLError(.badServerResponse)
                 completion(.failure(receivedError))
                 return
             }

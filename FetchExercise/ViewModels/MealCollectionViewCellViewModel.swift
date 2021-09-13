@@ -24,7 +24,7 @@ final class MealCollectionViewCellViewModel {
     /// - Parameters:
     ///   - meal: Meal?
     ///   - completion: (UIImage?) -> Void
-    func downloadImage(for meal: Meal?, completion: @escaping (UIImage?) -> Void) {
+    func downloadImage(for meal: Meal?, completion: @escaping (ImageDownloadState) -> Void) {
         guard let imageURLString = meal?.imageURLString,
               let imageURL = URL(string: imageURLString)
         else {
@@ -60,20 +60,21 @@ final class MealCollectionViewCellViewModel {
         self.currentURLTask?.cancel()
     }
     
-    private func handleImageSuccess(image: UIImage, completion: @escaping (UIImage?) -> Void) {
+    private func handleImageSuccess(image: UIImage, completion: @escaping (ImageDownloadState) -> Void) {
         DispatchQueue.main.async {
-            completion(image)
+            completion(.success(image: image))
         }
     }
     
-    private func handleImageFailure(error: Error? = nil, completion: @escaping (UIImage?) -> Void) {
-        if let urlError = error as? URLError,
-           urlError.code == .cancelled {
-            return
-        }
-        
+    private func handleImageFailure(error: Error? = nil, completion: @escaping (ImageDownloadState) -> Void) {
         DispatchQueue.main.async {
-            completion(nil)
+            if let urlError = error as? URLError,
+               urlError.code == .cancelled {
+                completion(.cancelled)
+                return
+            }
+            
+            completion(.failure(error: error))
         }
     }
 }

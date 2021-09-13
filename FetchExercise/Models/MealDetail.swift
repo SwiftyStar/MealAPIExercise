@@ -3,11 +3,11 @@
 
 import Foundation
 
-struct MealDetails: Decodable {
+struct MealDetails: Codable {
     let meals: [MealDetail]
 }
 
-final class MealDetail: NSObject, Decodable {
+final class MealDetail: NSObject, Codable {
     let id: String?
     let name: String?
     let instructions: String?
@@ -102,5 +102,99 @@ final class MealDetail: NSObject, Decodable {
         case ingredientMeasure18 = "strMeasure18"
         case ingredientMeasure19 = "strMeasure19"
         case ingredientMeasure20 = "strMeasure20"
+    }
+    
+    init(id: String?,
+         name: String?,
+         instructions: String?,
+         imageURLString: String?,
+         youtubeURLString: String?,
+         sourceURLString: String?,
+         ingredientName1: String?,
+         ingredientName2: String?,
+         ingredientName3: String?,
+         ingredientName4: String?,
+         ingredientName5: String?,
+         ingredientName6: String?,
+         ingredientName7: String?,
+         ingredientName8: String?,
+         ingredientName9: String?,
+         ingredientName10: String?,
+         ingredientName11: String?,
+         ingredientName12: String?,
+         ingredientName13: String?,
+         ingredientName14: String?,
+         ingredientName15: String?,
+         ingredientName16: String?,
+         ingredientName17: String?,
+         ingredientName18: String?,
+         ingredientName19: String?,
+         ingredientName20: String?,
+         ingredientMeasure1: String?,
+         ingredientMeasure2: String?,
+         ingredientMeasure3: String?,
+         ingredientMeasure4: String?,
+         ingredientMeasure5: String?,
+         ingredientMeasure6: String?,
+         ingredientMeasure7: String?,
+         ingredientMeasure8: String?,
+         ingredientMeasure9: String?,
+         ingredientMeasure10: String?,
+         ingredientMeasure11: String?,
+         ingredientMeasure12: String?,
+         ingredientMeasure13: String?,
+         ingredientMeasure14: String?,
+         ingredientMeasure15: String?,
+         ingredientMeasure16: String?,
+         ingredientMeasure17: String?,
+         ingredientMeasure18: String?,
+         ingredientMeasure19: String?,
+         ingredientMeasure20: String?) {
+        self.id = id
+        self.name = name
+        self.imageURLString = imageURLString
+        self.sourceURLString = sourceURLString
+        self.youtubeURLString = youtubeURLString
+        self.instructions = instructions
+        self.ingredientName1 = ingredientName1
+        self.ingredientName2 = ingredientName2
+        self.ingredientName3 = ingredientName3
+        self.ingredientName4 = ingredientName4
+        self.ingredientName5 = ingredientName5
+        self.ingredientName6 = ingredientName6
+        self.ingredientName7 = ingredientName7
+        self.ingredientName8 = ingredientName8
+        self.ingredientName9 = ingredientName9
+        self.ingredientName10 = ingredientName10
+        self.ingredientName11 = ingredientName11
+        self.ingredientName12 = ingredientName12
+        self.ingredientName13 = ingredientName13
+        self.ingredientName14 = ingredientName14
+        self.ingredientName15 = ingredientName15
+        self.ingredientName16 = ingredientName16
+        self.ingredientName17 = ingredientName17
+        self.ingredientName18 = ingredientName18
+        self.ingredientName19 = ingredientName19
+        self.ingredientName20 = ingredientName20
+        self.ingredientMeasure1 = ingredientMeasure1
+        self.ingredientMeasure2 = ingredientMeasure2
+        self.ingredientMeasure3 = ingredientMeasure3
+        self.ingredientMeasure4 = ingredientMeasure4
+        self.ingredientMeasure5 = ingredientMeasure5
+        self.ingredientMeasure6 = ingredientMeasure6
+        self.ingredientMeasure7 = ingredientMeasure7
+        self.ingredientMeasure8 = ingredientMeasure8
+        self.ingredientMeasure9 = ingredientMeasure9
+        self.ingredientMeasure10 = ingredientMeasure10
+        self.ingredientMeasure11 = ingredientMeasure11
+        self.ingredientMeasure12 = ingredientMeasure12
+        self.ingredientMeasure13 = ingredientMeasure13
+        self.ingredientMeasure14 = ingredientMeasure14
+        self.ingredientMeasure15 = ingredientMeasure15
+        self.ingredientMeasure16 = ingredientMeasure16
+        self.ingredientMeasure17 = ingredientMeasure17
+        self.ingredientMeasure18 = ingredientMeasure18
+        self.ingredientMeasure19 = ingredientMeasure19
+        self.ingredientMeasure20 = ingredientMeasure20
     }
 }

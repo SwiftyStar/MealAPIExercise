@@ -88,7 +88,7 @@ extension MealCollectionViewController: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        self.viewModel.getItemSize(for: self.spacing, itemsPerRow: self.itemsPerRow)
+        self.viewModel.getItemSize(spacing: self.spacing, itemsPerRow: self.itemsPerRow)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

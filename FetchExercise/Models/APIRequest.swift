@@ -3,7 +3,7 @@
 
 import Foundation
 
-protocol APIRequest {
+public protocol APIRequest {
     var scheme: String { get }
     var host: String { get }
     var path: String { get }

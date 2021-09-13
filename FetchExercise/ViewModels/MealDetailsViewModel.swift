@@ -82,14 +82,8 @@ final class MealDetailsViewModel {
     
     /// Gets the name of the meal
     /// - Returns: String?
-    func getName() -> String? {
-        self.meal.name
-    }
-    
-    /// Gets the description of the meal
-    /// - Returns: String?
-    func getDescription() -> String? {
-        self.mealDetail?.description
+    func getName() -> String {
+        self.meal.name ?? kMeal
     }
     
     /// Gets the source URL, if available and valid

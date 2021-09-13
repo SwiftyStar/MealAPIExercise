@@ -3,11 +3,11 @@
 
 import Foundation
 
-struct Categories: Decodable {
+struct Categories: Codable {
     let categories: [Category]
 }
 
-struct Category: Decodable {
+struct Category: Codable {
     let id: String
     let name: String?
     let imageURLString: String?

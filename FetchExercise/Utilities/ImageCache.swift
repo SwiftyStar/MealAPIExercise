@@ -3,7 +3,7 @@
 
 import UIKit
 
-protocol ImageCache {
+public protocol ImageCache {
     func cacheImage(_ image: UIImage, for urlString: String)
     func getImage(for urlString: String) -> UIImage?
 }

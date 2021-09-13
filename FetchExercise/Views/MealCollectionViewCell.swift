@@ -104,10 +104,18 @@ final class MealCollectionViewCell: UICollectionViewCell {
         self.mealImageView.image = nil
         self.loadingView.startAnimating()
         self.loadingView.isHidden = false
-        self.viewModel.downloadImage(for: meal) { [weak self] image in
+        self.viewModel.downloadImage(for: meal) { [weak self] downloadState in
             self?.loadingView.stopAnimating()
             self?.loadingView.isHidden = true
-            self?.mealImageView.image = image // ?? defaultImage, or display some other view when nil
+            
+            switch downloadState {
+            case .success(let image):
+                self?.mealImageView.image = image
+            case .failure(let error):
+                print(error?.localizedDescription ?? "Undefined Error") // Handle Error
+            case .cancelled:
+                break
+            }
         }
     }
 }

@@ -126,10 +126,18 @@ final class CategoryTableViewCell: UITableViewCell {
         self.categoryImageView.image = nil
         self.loadingView.startAnimating()
         self.loadingView.isHidden = false
-        self.viewModel.downloadImage(for: category) { [weak self] image in
+        self.viewModel.downloadImage(for: category) { [weak self] downloadState in
             self?.loadingView.stopAnimating()
             self?.loadingView.isHidden = true
-            self?.categoryImageView.image = image
+            
+            switch downloadState {
+            case .success(let image):
+                self?.categoryImageView.image = image
+            case .failure(let error):
+                print(error?.localizedDescription ?? "Undefined Error") // Handle Error
+            case .cancelled:
+                break
+            }
         }
     }
 }
